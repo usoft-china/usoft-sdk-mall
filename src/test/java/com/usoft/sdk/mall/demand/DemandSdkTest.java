@@ -21,7 +21,7 @@ public class DemandSdkTest {
     /**
      * 正式地址
      */
-//	private DemandSdk demandSdk = new DemandSdk("http://api-product.usoftchina.com");
+//	private DemandSdk demandSdk = new DemandSdk("https://malldemandreust.usoftchina.com");
     @Test
     public void addDemand() throws Exception {
         AddDemandReq.Builder req = AddDemandReq.newBuilder();
