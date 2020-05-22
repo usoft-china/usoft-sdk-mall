@@ -105,7 +105,7 @@ public class DemandSdk extends BaseSdk {
     }
 
     /**
-     * v2卖家分页查询报价单
+     * v2卖家分页查询报价
      * @param req
      * @return
      * @throws Exception
