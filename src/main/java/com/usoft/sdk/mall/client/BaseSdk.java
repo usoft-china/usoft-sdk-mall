@@ -6,8 +6,9 @@ import com.usoft.sdk.mall.utils.HttpUtil;
 import com.usoft.sdk.mall.utils.ProtoBufUtil;
 import com.usoft.security.utils.OpenApiSignUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.net.URLEncoder;
 import java.util.Map;
 
 /**
@@ -17,6 +18,7 @@ import java.util.Map;
  * @date: 2019-12-12 17:26
  **/
 public abstract class BaseSdk {
+	private static final Logger LOGGER = LoggerFactory.getLogger(BaseSdk.class);
 	/**
 	 * 默认超时时间
 	 */
@@ -79,8 +81,8 @@ public abstract class BaseSdk {
 			paramMap.remove(OpenApiSignUtil.SIGNATURE_KEY);
 		}
 		String paramStr = HttpUtil.getParamStr(paramMap);
+		LOGGER.debug("[BaseSdk.genSignToMap]待签名串：{}", paramStr);
 		String signatureValue = OpenApiSignUtil.sign(paramStr, secretKey);
-		signatureValue = URLEncoder.encode(signatureValue, "UTF-8");
 		//设置签名
 		paramMap.put(OpenApiSignUtil.SIGNATURE_KEY, signatureValue);
 		return paramMap;

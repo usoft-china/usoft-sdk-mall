@@ -27,7 +27,7 @@
 <dependency>
     <groupId>com.usoft.sdk</groupId>
     <artifactId>usoft-sdk-mall</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
 </dependency>
 ```
 

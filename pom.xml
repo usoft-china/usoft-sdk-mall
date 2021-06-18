@@ -70,6 +70,11 @@
             <artifactId>usoft-mall-demand-external-api</artifactId>
             <version>${spring.active.profile}-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.usoft.mall.product</groupId>
+            <artifactId>usoft-mall-product-external-api</artifactId>
+            <version>${spring.active.profile}-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <distributionManagement>

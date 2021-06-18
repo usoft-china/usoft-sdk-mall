@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +43,11 @@ public class HttpUtil {
 	 * @throws IOException
 	 */
 	public static String doGet(String url, Map<String, String> params, int timeout) throws IOException {
+		if (MapUtils.isNotEmpty(params)) {
+			for (Map.Entry<String, String> kv : params.entrySet()) {
+				kv.setValue(URLEncoder.encode(kv.getValue(), "UTF-8"));
+			}
+		}
 		return doGet(getPath(url, params), timeout);
 	}
 
@@ -52,13 +58,10 @@ public class HttpUtil {
 	 * @param params
 	 * @return
 	 */
-	private static String getPath(String url, Map<String, String> params) {
+	public static String getPath(String url, Map<String, String> params) {
 		String path = url;
 		if (StringUtils.isNotBlank(url) && MapUtils.isNotEmpty(params)) {
-			StringBuilder sb = new StringBuilder(url);
-			sb.append("?");
-			sb.append(getParamStr(params));
-			path = sb.toString();
+			path = url + "?" + getParamStr(params);
 		}
 		return path;
 	}
@@ -87,7 +90,7 @@ public class HttpUtil {
 	 * @return
 	 * @throws IOException
 	 */
-	private static String doGet(String url, int timeout) throws IOException {
+	public static String doGet(String url, int timeout) throws IOException {
 		if (StringUtils.isBlank(url)) {
 			throw new RuntimeException("url不能为空");
 		}
@@ -133,8 +136,7 @@ public class HttpUtil {
 				BasicNameValuePair basicNameValuePair = new BasicNameValuePair(kv.getKey(), kv.getValue());
 				nvList.add(basicNameValuePair);
 			}
-			UrlEncodedFormEntity entity = new UrlEncodedFormEntity(nvList);
-			entity.setContentEncoding("UTF-8");
+			UrlEncodedFormEntity entity = new UrlEncodedFormEntity(nvList, "UTF-8");
 			httpPost.setEntity(entity);
 		}
 		String result = doPost(url, httpPost, timeout);

@@ -11,10 +11,7 @@ import com.google.protobuf.util.JsonFormat;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * ProtoBuf 工具类
@@ -26,7 +23,7 @@ public class ProtoBufUtil {
 	/**
 	 * ProtoBuf to Json Format
 	 */
-	private static final JsonFormat.Printer JSON_FORMAT_PRINTER = JsonFormat.printer().includingDefaultValueFields().omittingInsignificantWhitespace();
+	private static final MyJsonFormat.Printer JSON_FORMAT_PRINTER = MyJsonFormat.printer().preservingProtoFieldNames().includingDefaultValueFields().omittingInsignificantWhitespace();
 	/**
 	 * Parser Json To ProtoBuf
 	 */
@@ -113,7 +110,7 @@ public class ProtoBufUtil {
 	public static Map<String, String> toMap(MessageOrBuilder message) {
 		Map<Descriptors.FieldDescriptor, Object> fieldMap = message.getAllFields();
 		if (MapUtils.isEmpty(fieldMap)) {
-			return new LinkedHashMap<>(0);
+			return new HashMap<>(0);
 		}
 		Map<String, String> result = new LinkedHashMap<>(fieldMap.size());
 		for (Map.Entry<Descriptors.FieldDescriptor, Object> kv : fieldMap.entrySet()) {
@@ -124,7 +121,6 @@ public class ProtoBufUtil {
 					javaType == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
 				continue;
 			}
-
 			result.put(kv.getKey().getName(), kv.getValue().toString());
 		}
 		return result;
