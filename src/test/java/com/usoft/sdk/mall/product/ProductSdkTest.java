@@ -9,7 +9,7 @@ public class ProductSdkTest {
     /**
      * 测试地址
      */
-    private ProductSdk productSdk = new ProductSdk("https://b2bproductrest.uuzcc.cn", "10050624", "c49f7be6a861461ab951e55030055a5c");
+    private ProductSdk productSdk = new ProductSdk("https://mallproductrest.uuzcc.cn", "10050624", "c49f7be6a861461ab951e55030055a5c");
 
     @Test
     public void getProductsPage() throws Exception {
